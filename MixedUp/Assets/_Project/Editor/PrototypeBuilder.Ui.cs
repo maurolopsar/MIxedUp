@@ -256,12 +256,12 @@ namespace MixedUp.EditorTools
             }
 
             // --- bottom: back / reset settings / reset progress
-            panel.backButton = UiFactory.NewButton("Back", card, "", "ui.back", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft);
-            At((RectTransform)panel.backButton.transform, 70f, 884f, 340f, 92f);
-            panel.resetButton = UiFactory.NewButton("Reset", card, "", "ui.reset", new Vector2(250f, 74f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)panel.resetButton.transform, 450f, 892f, 250f, 74f);
-            panel.resetProgressButton = UiFactory.NewButton("ResetProgress", card, "", "ui.reset_progress", new Vector2(260f, 74f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)panel.resetProgressButton.transform, 715f, 892f, 260f, 74f);
+            panel.backButton = UiFactory.NewButton("Back", card, "", "ui.back", new Vector2(360f, 96f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
+            At((RectTransform)panel.backButton.transform, 70f, 882f, 360f, 96f);
+            panel.resetButton = UiFactory.NewButton("Reset", card, "", "ui.reset", new Vector2(240f, 70f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)panel.resetButton.transform, 450f, 894f, 240f, 70f);
+            panel.resetProgressButton = UiFactory.NewButton("ResetProgress", card, "", "ui.reset_progress", new Vector2(260f, 70f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Danger);
+            At((RectTransform)panel.resetProgressButton.transform, 700f, 894f, 260f, 70f);
 
             dim.gameObject.SetActive(false);
             return panel;

@@ -153,10 +153,10 @@ namespace MixedUp.EditorTools
 
             BuildTravelBar(bg, screen);
 
-            screen.manualButton = UiFactory.NewButton("ManualButton", bg, "", "ui.manual", new Vector2(400f, 100f));
-            UiFactory.Place((RectTransform)screen.manualButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(-280f, 60f), new Vector2(400f, 100f));
-            screen.startButton = UiFactory.NewButton("StartButton", bg, "", "puzzle.start", new Vector2(480f, 110f));
-            UiFactory.Place((RectTransform)screen.startButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(280f, 60f), new Vector2(480f, 110f));
+            screen.manualButton = UiFactory.NewButton("ManualButton", bg, "", "ui.manual", new Vector2(380f, 90f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            UiFactory.Place((RectTransform)screen.manualButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(-300f, 60f), new Vector2(380f, 90f));
+            screen.startButton = UiFactory.NewButton("StartButton", bg, "", "puzzle.start", new Vector2(540f, 124f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            UiFactory.Place((RectTransform)screen.startButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(260f, 52f), new Vector2(540f, 124f));
             return screen;
         }
 
@@ -286,8 +286,8 @@ namespace MixedUp.EditorTools
             screen.rewardLabel = number;
 
             screen.walletLabel = CardText(card, "", null, 38f, 56f, new Color(Ink.r, Ink.g, Ink.b, 0.7f));
-            ui.resultsRetryButton = CardButton(card, "", "ui.retry", 90f);
-            ui.resultsMenuButton = CardButton(card, "", "ui.main_menu", 90f);
+            ui.resultsRetryButton = CardButton(card, "", "ui.retry", 104f, UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            ui.resultsMenuButton = CardButton(card, "", "ui.main_menu", 80f, UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             ui.resultsScreen = screen;
 
             // The author's own drawing of the payment, tucked into the corner of the card.
@@ -360,7 +360,7 @@ namespace MixedUp.EditorTools
 
             panel.rowContainer = rows;
             panel.rowTemplate = rowView;
-            panel.closeButton = UiFactory.NewButton("Close", inner, "", "ui.close", new Vector2(360f, 90f));
+            panel.closeButton = UiFactory.NewButton("Close", inner, "", "ui.close", new Vector2(360f, 90f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             UiFactory.Place((RectTransform)panel.closeButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(360f, 90f));
             return panel;
         }
@@ -379,39 +379,44 @@ namespace MixedUp.EditorTools
             UiFactory.Place(summary.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -108f), new Vector2(900f, 50f));
 
             var rows = UiFactory.NewRect("Rows", inner);
-            UiFactory.Place(rows, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -170f), new Vector2(1700f, 680f));
+            // 17 achievements in three columns of six rows fit inside the card with room for the close sign below.
+            UiFactory.Place(rows, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -176f), new Vector2(1700f, 660f));
             var layout = rows.gameObject.AddComponent<GridLayoutGroup>();
-            layout.cellSize = new Vector2(830f, 100f);
-            layout.spacing = new Vector2(30f, 6f);
+            layout.cellSize = new Vector2(550f, 104f);
+            layout.spacing = new Vector2(25f, 6f);
             layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            layout.constraintCount = 2;
+            layout.constraintCount = 3;
             layout.childAlignment = TextAnchor.UpperCenter;
 
             var template = UiFactory.NewRect("RowTemplate", rows);
-            template.sizeDelta = new Vector2(830f, 100f);
+            template.sizeDelta = new Vector2(550f, 104f);
             var group = template.gameObject.AddComponent<CanvasGroup>();
 
             var tick = UiFactory.NewSprite("Tick", template, "checkmark");
-            UiFactory.Place(tick.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(8f, 0f), new Vector2(70f, 70f));
+            UiFactory.Place(tick.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(6f, 0f), new Vector2(66f, 66f));
             var box = UiFactory.NewSprite("Box", template, "checkbox");
-            UiFactory.Place(box.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(8f, 0f), new Vector2(70f, 70f));
+            UiFactory.Place(box.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(6f, 0f), new Vector2(66f, 66f));
             box.transform.SetAsFirstSibling();
 
-            var rowName = UiFactory.NewText("Name", template, "", 38f, Ink, TextAlignmentOptions.MidlineLeft);
-            rowName.rectTransform.anchorMin = new Vector2(0f, 0.5f);
+            // Name on top (leaving room for the progress), what to do below in at most two lines: both shrink to fit, never spill.
+            var rowName = UiFactory.NewText("Name", template, "", 36f, Ink, TextAlignmentOptions.MidlineLeft);
+            rowName.rectTransform.anchorMin = new Vector2(0f, 0.52f);
             rowName.rectTransform.anchorMax = new Vector2(1f, 1f);
-            rowName.rectTransform.offsetMin = new Vector2(96f, 0f);
-            rowName.rectTransform.offsetMax = new Vector2(-170f, -2f);
-            var desc = UiFactory.NewText("Description", template, "", 28f, new Color(Ink.r, Ink.g, Ink.b, 0.8f), TextAlignmentOptions.TopLeft);
+            rowName.rectTransform.offsetMin = new Vector2(86f, 0f);
+            rowName.rectTransform.offsetMax = new Vector2(-120f, -2f);
+            rowName.overflowMode = TextOverflowModes.Ellipsis;
+            var desc = UiFactory.NewText("Description", template, "", 26f, new Color(Ink.r, Ink.g, Ink.b, 0.8f), TextAlignmentOptions.TopLeft);
             desc.rectTransform.anchorMin = new Vector2(0f, 0f);
-            desc.rectTransform.anchorMax = new Vector2(1f, 0.5f);
-            desc.rectTransform.offsetMin = new Vector2(96f, 2f);
-            desc.rectTransform.offsetMax = new Vector2(-10f, 0f);
-            var progress = UiFactory.NewText("Progress", template, "", 34f, Brick, TextAlignmentOptions.MidlineRight);
-            progress.rectTransform.anchorMin = new Vector2(1f, 0.5f);
+            desc.rectTransform.anchorMax = new Vector2(1f, 0.52f);
+            desc.rectTransform.offsetMin = new Vector2(86f, 4f);
+            desc.rectTransform.offsetMax = new Vector2(-8f, 0f);
+            desc.fontSizeMin = 14f;
+            desc.overflowMode = TextOverflowModes.Ellipsis;
+            var progress = UiFactory.NewText("Progress", template, "", 32f, Brick, TextAlignmentOptions.MidlineRight);
+            progress.rectTransform.anchorMin = new Vector2(1f, 0.52f);
             progress.rectTransform.anchorMax = new Vector2(1f, 1f);
-            progress.rectTransform.offsetMin = new Vector2(-170f, 0f);
-            progress.rectTransform.offsetMax = new Vector2(-10f, -2f);
+            progress.rectTransform.offsetMin = new Vector2(-116f, 0f);
+            progress.rectTransform.offsetMax = new Vector2(-8f, -2f);
 
             var view = template.gameObject.AddComponent<AchievementRowView>();
             view.nameLabel = rowName;
@@ -423,7 +428,7 @@ namespace MixedUp.EditorTools
             panel.rowContainer = rows;
             panel.rowTemplate = view;
             panel.summaryLabel = summary;
-            panel.closeButton = UiFactory.NewButton("Close", inner, "", "ui.close", new Vector2(360f, 90f));
+            panel.closeButton = UiFactory.NewButton("Close", inner, "", "ui.close", new Vector2(360f, 90f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             UiFactory.Place((RectTransform)panel.closeButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(360f, 90f));
             return panel;
         }

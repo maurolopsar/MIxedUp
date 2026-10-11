@@ -133,6 +133,9 @@ namespace MixedUp.EditorTools
             foreach (var spot in c.points.GetComponentsInChildren<BoxSpawnPoint>())
                 reserved.Add((new Vector2(spot.transform.position.x, spot.transform.position.z), 3.4f));
 
+            // The huts, signs and secrets that give the places a reason to be there (they add what they occupy to `reserved`).
+            AddSummitDetails(c, reserved);
+
             bool Blocked(float x, float z)
             {
                 foreach (var (centre, radius) in reserved)

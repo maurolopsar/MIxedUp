@@ -236,40 +236,49 @@ namespace MixedUp.EditorTools
             }
 
             // --- map and mode (top right)
-            var choiceCard = UiFactory.Panel("Choices", canvasGo.transform, new Vector2(800f, 620f), out var choiceRoot, false, true);
-            UiFactory.Place(choiceRoot, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-40f, -40f), new Vector2(800f, 620f));
+            var choiceCard = UiFactory.Panel("Choices", canvasGo.transform, new Vector2(800f, 760f), out var choiceRoot, false, true);
+            UiFactory.Place(choiceRoot, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-40f, -40f), new Vector2(800f, 760f));
 
             var mapHeader = UiFactory.NewText("MapHeader", choiceCard, "", 38f, Brick, TextAlignmentOptions.Center, "lobby.map");
             At(mapHeader.rectTransform, 150f, 34f, 500f, 46f);
+
+            // A picture of the chosen map, so the host and the others see where they are going.
+            var photo = UiFactory.Panel("MapPhoto", choiceCard, new Vector2(340f, 192f), out var photoRoot, true, false);
+            At(photoRoot, 230f, 88f, 340f, 192f);
+            var picture = UiFactory.NewRect("Picture", photo);
+            UiFactory.Stretch(picture, 14f);
+            lobby.mapThumbnail = picture.gameObject.AddComponent<RawImage>();
+            lobby.mapThumbnail.raycastTarget = false;
+
             lobby.mapName = UiFactory.NewText("MapName", choiceCard, "", 50f, UiFactory.Ink, TextAlignmentOptions.Center);
-            At(lobby.mapName.rectTransform, 130f, 84f, 540f, 70f);
+            At(lobby.mapName.rectTransform, 130f, 292f, 540f, 66f);
             lobby.mapDescription = UiFactory.NewText("MapDescription", choiceCard, "", 28f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.85f), TextAlignmentOptions.Top);
-            At(lobby.mapDescription.rectTransform, 70f, 158f, 660f, 80f);
-            lobby.mapPrevious = UiFactory.NewButton("MapPrevious", choiceCard, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)lobby.mapPrevious.transform, 36f, 90f, 80f, 80f);
-            lobby.mapNext = UiFactory.NewButton("MapNext", choiceCard, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)lobby.mapNext.transform, 684f, 90f, 80f, 80f);
+            At(lobby.mapDescription.rectTransform, 70f, 362f, 660f, 80f);
+            lobby.mapPrevious = UiFactory.NewButton("MapPrevious", choiceCard, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)lobby.mapPrevious.transform, 70f, 144f, 80f, 80f);
+            lobby.mapNext = UiFactory.NewButton("MapNext", choiceCard, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)lobby.mapNext.transform, 650f, 144f, 80f, 80f);
 
             var modeHeader = UiFactory.NewText("ModeHeader", choiceCard, "", 38f, Brick, TextAlignmentOptions.Center, "ui.mode");
-            At(modeHeader.rectTransform, 150f, 300f, 500f, 46f);
+            At(modeHeader.rectTransform, 150f, 468f, 500f, 46f);
             lobby.modeName = UiFactory.NewText("ModeName", choiceCard, "", 50f, UiFactory.Ink, TextAlignmentOptions.Center);
-            At(lobby.modeName.rectTransform, 130f, 350f, 540f, 70f);
+            At(lobby.modeName.rectTransform, 130f, 518f, 540f, 66f);
             lobby.modeDescription = UiFactory.NewText("ModeDescription", choiceCard, "", 28f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.85f), TextAlignmentOptions.Top);
-            At(lobby.modeDescription.rectTransform, 70f, 424f, 660f, 100f);
-            lobby.modePrevious = UiFactory.NewButton("ModePrevious", choiceCard, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)lobby.modePrevious.transform, 36f, 356f, 80f, 80f);
-            lobby.modeNext = UiFactory.NewButton("ModeNext", choiceCard, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)lobby.modeNext.transform, 684f, 356f, 80f, 80f);
+            At(lobby.modeDescription.rectTransform, 70f, 588f, 660f, 100f);
+            lobby.modePrevious = UiFactory.NewButton("ModePrevious", choiceCard, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)lobby.modePrevious.transform, 70f, 520f, 80f, 80f);
+            lobby.modeNext = UiFactory.NewButton("ModeNext", choiceCard, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)lobby.modeNext.transform, 650f, 520f, 80f, 80f);
 
             // --- buttons (bottom)
             lobby.waitingLabel = UiFactory.NewText("Waiting", canvasGo.transform, "", 36f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.9f), TextAlignmentOptions.Center);
             UiFactory.Place(lobby.waitingLabel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 170f), new Vector2(900f, 60f));
-            lobby.readyButton = UiFactory.NewButton("Ready", canvasGo.transform, "", "lobby.ready_action", new Vector2(520f, 110f));
-            UiFactory.Place((RectTransform)lobby.readyButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(520f, 110f));
+            lobby.readyButton = UiFactory.NewButton("Ready", canvasGo.transform, "", "lobby.ready_action", new Vector2(580f, 124f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            UiFactory.Place((RectTransform)lobby.readyButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(580f, 124f));
             lobby.readyLabel = lobby.readyButton.GetComponentInChildren<TMP_Text>();
-            lobby.startButton = UiFactory.NewButton("Start", canvasGo.transform, "", "lobby.start", new Vector2(520f, 110f));
-            UiFactory.Place((RectTransform)lobby.startButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(520f, 110f));
-            lobby.leaveButton = UiFactory.NewButton("Leave", canvasGo.transform, "", "lobby.leave", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft);
+            lobby.startButton = UiFactory.NewButton("Start", canvasGo.transform, "", "lobby.start", new Vector2(580f, 124f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            UiFactory.Place((RectTransform)lobby.startButton.transform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(580f, 124f));
+            lobby.leaveButton = UiFactory.NewButton("Leave", canvasGo.transform, "", "lobby.leave", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             UiFactory.Place((RectTransform)lobby.leaveButton.transform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(40f, 40f), new Vector2(340f, 92f));
 
             var always = UiFactory.NewText("TabHint", canvasGo.transform, "", 32f, Color.white, TextAlignmentOptions.BottomRight, "lobby.tab_hint");

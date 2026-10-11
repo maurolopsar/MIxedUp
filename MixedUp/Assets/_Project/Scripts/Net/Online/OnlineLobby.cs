@@ -27,6 +27,7 @@ namespace MixedUp
 
         [Header("Host choices")]
         public TMP_Text mapName;
+        public RawImage mapThumbnail;
         public TMP_Text mapDescription;
         public Button mapPrevious, mapNext;
         public TMP_Text modeName;
@@ -242,6 +243,12 @@ namespace MixedUp
             var level = (hostAvatar != null ? LevelCatalog.Find(hostAvatar.MapId) : null) ?? LevelCatalog.Prototype;
             var mode = (hostAvatar != null ? GameModes.Find(hostAvatar.ModeId) : null) ?? GameModes.Classic;
             mapName.text = level.DisplayName;
+            if (mapThumbnail != null)
+            {
+                var picture = level.Thumbnail;
+                mapThumbnail.texture = picture;
+                mapThumbnail.enabled = picture != null;
+            }
             mapDescription.text = level.Description;
             modeName.text = mode.DisplayName;
             modeDescription.text = mode.Description;

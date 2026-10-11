@@ -245,3 +245,115 @@ death.push,Bultzada batek azken tantan utzi zuen.,Un empujón fue la gota que co
 input.right_click,Eskuineko klika,Click derecho,Right click
 input.left_click,Ezkerreko klika,Click izquierdo,Left click
 toast.restart_asked,Anfitrioiari berrabiaraztea eskatu zaio...,Pidiendo al anfitrión que reinicie...,Asking the host to restart...
+prompt.secret,Aztertu,Investigar,Look closer
+prompt.fish,Arrantzatu,Pescar,Go fishing
+prompt.wave,Agurtu,Saludar,Say hi
+prompt.knock,Deitu atea,Llamar a la puerta,Knock on the door
+ach.secrets.name,Sekretuen ehiztaria,Cazador de secretos,Secret hunter
+ach.secrets.desc,Aurkitu 6 sekretu mapetan.,Encuentra 6 secretos en los mapas.,Find 6 secrets on the maps.
+notice.summit.camp,"OINARRIZKO KANPALEKUA
+Hemen dena berotzen da... kutxak izan ezik.","CAMPAMENTO BASE
+Aquí se calienta todo... menos las cajas.","BASE CAMP
+Everything gets warm here... except the boxes."
+notice.summit.lake,"LAGUNA ELURTUA
+xaboia baino irristakorragoa. Makurtu eta otoitz egin.","LAGUNA HELADA
+Resbala más que el jabón. Agáchate y reza.","FROZEN LAKE
+Slipperier than soap. Duck and pray."
+notice.summit.pylon,"TRANSFORMADOREA
+Ez ukitu. Serio.","TRANSFORMADOR
+No tocar. En serio.","TRANSFORMER
+Do not touch. Seriously."
+notice.summit.outcrop,"HONDAKINAK
+Berdea ez da pintura.","RESIDUOS
+Lo verde no es pintura.","WASTE
+The green stuff is not paint."
+notice.summit.glacier,"GLAZIARRAREN ARRAMPA
+Hartu abiada eta fedea.","RAMPA DEL GLACIAR
+Coge carrerilla y ten fe.","GLACIER RAMP
+Take a run-up and have faith."
+notice.summit.cabin,"GAILURREKO ERREFUXIOA
+24 ordu zabalik. Txokolate beroa: agortuta.","REFUGIO DE LA CUMBRE
+Abierto 24 h. Chocolate caliente: agotado.","SUMMIT HUT
+Open 24 h. Hot chocolate: sold out."
+notice.summit.tower,"BEGIRALEKUA
+7 metro ikuspegi eta erorketa.","ATALAYA
+7 metros de vistas y de caída.","LOOKOUT
+7 metres of view and of fall."
+notice.summit.mine,"MEATZE ZAHARRA
+sabai baxua: makurtuta pasa.","MINA VIEJA
+Techo bajo: pasa agachado.","OLD MINE
+Low ceiling: crawl through."
+notice.summit.lakeshore,"EDO ARRANTZA
+Arrainak eskatu du: utzi bakean.","PESCA EN HIELO
+Los peces han pedido que los dejen en paz.","ICE FISHING
+The fish have asked to be left alone."
+sign.lake,LAGUNA,LAGUNA,LAKE
+sign.glacier,GLAZIARRA,GLACIAR,GLACIER
+sign.camp,KANPALEKUA,CAMPAMENTO,CAMP
+sign.tower,BEGIRALEKUA,ATALAYA,LOOKOUT
+sign.cabin,ERREFUXIOA,REFUGIO,HUT
+sign.mine,MEATZEA,MINA,MINE
+secret.yeti,Yetiak agurtu zaitu eta galtzerdi bat lapurtu dizu.,El yeti te saluda y te roba un calcetín.,The yeti waves and steals one of your socks.
+secret.fish,Bota zahar bat arrantzatu duzu. Eta galtzerdi bat. Yetiarena?,Pescas una bota vieja. Y un calcetín. ¿Del yeti?,You fish up an old boot. And a sock. The yeti's?
+secret.cabin,Deitu duzu. Barnetik xuxurla bat: «Ez dago inor».,Llamas a la puerta. Dentro susurran: «No hay nadie».,"You knock. A whisper from inside: ""Nobody home."""
+secret.tent,"Dendan: lo-zaku bat, linterna bat eta galleta-kutxa huts asko.","Dentro de la tienda: un saco, una linterna y muchas cajas de galletas vacías.","Inside the tent: a sleeping bag, a torch and lots of empty cookie boxes."
+secret.sled,Lera batean eseri zara. Oraindik goiz da jaisteko.,Te sientas en el trineo. Todavía es pronto para bajar.,You sit on the sled. Too early to ride down.
+notice.harbour.welcome,"ARRATSALDEKO PORTUA
+Ilbeltzen da. Debekatuta txistu egitea: krakena esnatzen da.","PUERTO AL ANOCHECER
+Prohibido silbar: despierta al kraken.","DUSK HARBOUR
+No whistling: it wakes the kraken."
+notice.harbour.warehouse,"GORDETEGIA 7
+Langileak bakarrik (eta kutxa susmagarriak).","ALMACÉN 7
+Solo personal autorizado (y cajas sospechosas).","WAREHOUSE 7
+Staff only (and suspicious boxes)."
+notice.harbour.pier,"MUELLE NAGUSIA
+Ura azala bakarrik bustitzen du. Elektrizitatea, ez hain gutxi.","MUELLE PRINCIPAL
+El agua solo moja. La electricidad, no tanto.","MAIN PIER
+Water only gets you wet. Electricity, not so much."
+notice.harbour.east,"ERDIALDEKO MUELLEA
+Balsa nahi duenean abiatzen da.","MUELLE ESTE
+La balsa sale cuando le apetece.","EAST PIER
+The raft leaves whenever it feels like it."
+notice.harbour.generator,"GENERADOREA
+Urak eta honek ez dute elkar maite.","GENERADOR
+El agua y esto no se llevan bien.","GENERATOR
+Water and this do not get along."
+notice.harbour.brazier,"ERREKARIA
+Bero! Kutxa beroek badakite.","BRASERO
+¡Caliente! Las cajas calientes lo saben.","BRAZIER
+Hot! Hot boxes know it well."
+notice.harbour.market,"LONJA
+Arrain fresko (atzokoa).","LONJA
+Pescado fresco (de ayer).","FISH MARKET
+Fresh fish (from yesterday)."
+notice.harbour.master,"PORTUKO KAPITAINTZA
+Oporretan itxita.","CAPITANÍA
+Cerrado por vacaciones.","HARBOUR MASTER
+Closed for the holidays."
+notice.harbour.lighthouse,"FAROA
+Argia biraka dabil. Eskailera ere bai.","FARO VIEJO
+La luz gira. La escalera, también.","OLD LIGHTHOUSE
+The light turns. So does the staircase."
+notice.harbour.crane,"3. GRUA
+Gehieneko karga: kutxa txar bat.","GRÚA 3
+Carga máxima: una caja mala.","CRANE 3
+Maximum load: one bad box."
+notice.harbour.barge,"BARKAZA
+Inorena ez. Kontuz kutxa toxikoarekin.","BARCAZA
+De nadie. Cuidado con la caja tóxica.","BARGE
+Belongs to nobody. Mind the toxic box."
+sign.lighthouse,FAROA,FARO,LIGHTHOUSE
+sign.warehouse,GORDETEGIA,ALMACÉN,WAREHOUSE
+sign.barge,BARKAZA,BARCAZA,BARGE
+sign.island,UHARTEA,ISLA,ISLAND
+sign.market,LONJA,LONJA,MARKET
+sign.master,KAPITAINTZA,CAPITANÍA,HARBOUR MASTER
+secret.kraken,Uraren azpitik zerbaitek agurtu zaitu. Hobe ez galdetu.,Algo bajo el agua te devuelve el saludo. Mejor no preguntar.,Something under the water waves back. Better not ask.
+secret.bottle,Botilaren barruan ohar bat: «Kutxa elektrikoa eta ura ez dira lagun. Probatu nuenak.»,Dentro de la botella hay una nota: «La caja eléctrica y el agua no son amigas. Firmado: el que lo probó».,"A note in the bottle: ""Electric boxes and water are not friends. Signed: the one who tried."""
+secret.gull,Kaio batek begira dizu. Badaki non dagoen zure bazkaria.,Una gaviota te mira. Sabe dónde está tu almuerzo.,A seagull stares at you. It knows where your lunch is.
+secret.crane,Palanka tiratu duzu: gruak intziri egin du. Hobe ez.,Tiras de la palanca: la grúa gime. Mejor no.,You pull the lever: the crane groans. Better not.
+secret.market,"«Arrain freskoa», dio kartelak. Arrainak ez dago ados.","«Pescado fresco», dice el cartel. El pescado opina distinto.","""Fresh fish"", says the sign. The fish disagrees."
+notice.summit.start,"ONGI ETORRI GAILURRERA
+Bidea hemen amaitzen da. Eskaera, ez.","BIENVENIDO A LA CUMBRE
+La carretera acaba aquí. El pedido, no.","WELCOME TO THE SUMMIT
+The road ends here. The order does not."

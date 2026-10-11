@@ -368,9 +368,9 @@ namespace MixedUp.EditorTools
         }
 
         static Button CardButton(Transform card, string text, string key, float height,
-            UiFactory.ButtonStyle style = UiFactory.ButtonStyle.SignRight)
+            UiFactory.ButtonStyle style = UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole role = UiFactory.ButtonRole.Secondary)
         {
-            var button = UiFactory.NewButton("Button", card, text, key, new Vector2(0f, height), style);
+            var button = UiFactory.NewButton("Button", card, text, key, new Vector2(0f, height), style, role);
             return button;
         }
 
@@ -385,11 +385,12 @@ namespace MixedUp.EditorTools
             var underline = UiFactory.NewSprite("Underline", card, "underline");
             underline.rectTransform.sizeDelta = new Vector2(0f, 26f);
 
-            ui.resumeButton = CardButton(card, "", "ui.resume", 100f);
-            ui.settingsButton = CardButton(card, "", "ui.settings", 100f);
-            ui.manualButton = CardButton(card, "", "ui.manual", 100f);
-            ui.menuButton = CardButton(card, "", "ui.main_menu", 100f);
-            ui.pauseQuitButton = CardButton(card, "", "ui.quit", 100f);
+            // Continue is the big golden sign; the ones that go deeper point on; leaving points back; quitting is a small red plank.
+            ui.resumeButton = CardButton(card, "", "ui.resume", 124f, UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            ui.settingsButton = CardButton(card, "", "ui.settings", 96f);
+            ui.manualButton = CardButton(card, "", "ui.manual", 96f);
+            ui.menuButton = CardButton(card, "", "ui.main_menu", 88f, UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
+            ui.pauseQuitButton = CardButton(card, "", "ui.quit", 70f, UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Danger);
         }
 
         static void BuildGameOverPanel(Transform canvas, UIManager ui)
@@ -414,10 +415,10 @@ namespace MixedUp.EditorTools
             ui.quipLabel = UiFactory.NewText("Quip", card, "", 36f, new Color(Ink.r, Ink.g, Ink.b, 0.7f), TextAlignmentOptions.Center);
             At(ui.quipLabel.rectTransform, 680f, 460f, 720f, 70f);
 
-            ui.retryButton = UiFactory.NewButton("Retry", card, "", "ui.retry", new Vector2(520f, 100f));
-            At((RectTransform)ui.retryButton.transform, 690f, 545f, 520f, 100f);
-            ui.gameOverMenuButton = UiFactory.NewButton("Menu", card, "", "ui.main_menu", new Vector2(520f, 100f));
-            At((RectTransform)ui.gameOverMenuButton.transform, 690f, 650f, 520f, 96f);
+            ui.retryButton = UiFactory.NewButton("Retry", card, "", "ui.retry", new Vector2(600f, 116f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            At((RectTransform)ui.retryButton.transform, 670f, 536f, 600f, 116f);
+            ui.gameOverMenuButton = UiFactory.NewButton("Menu", card, "", "ui.main_menu", new Vector2(460f, 84f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
+            At((RectTransform)ui.gameOverMenuButton.transform, 700f, 668f, 460f, 84f);
         }
     }
 }

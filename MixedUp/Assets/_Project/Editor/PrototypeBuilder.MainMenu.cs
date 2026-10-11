@@ -59,12 +59,13 @@ namespace MixedUp.EditorTools
             data.antialiasingQuality = AntialiasingQuality.High;
 
             var orbit = camera.gameObject.AddComponent<MenuCameraOrbit>();
+            // The character stands in the gap between the signpost (left) and the cards (right), seen from head to boots.
             orbit.focus = hero.transform;
             orbit.yaw = 250f;
-            orbit.distance = 6.4f;
-            orbit.height = 1.6f;
-            orbit.swayDegrees = 8f;
-            orbit.screenShift = 2.2f;
+            orbit.distance = 5.6f;
+            orbit.height = 1.2f;
+            orbit.swayDegrees = 5f;
+            orbit.screenShift = -0.75f;
 
             BuildMainMenuUi(a, p);
             BuildEventSystem();
@@ -152,10 +153,10 @@ namespace MixedUp.EditorTools
             var detail = UiFactory.NewText("Detail", card, "", 32f, Brick, TextAlignmentOptions.Center);
             At(detail.rectTransform, 160f, 236f, 480f, 42f);
 
-            var previous = UiFactory.NewButton("Previous", card, "<", null, new Vector2(100f, 84f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)previous.transform, 36f, 78f, 100f, 84f);
-            var next = UiFactory.NewButton("Next", card, ">", null, new Vector2(100f, 84f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)next.transform, 664f, 78f, 100f, 84f);
+            var previous = UiFactory.NewButton("Previous", card, "<", null, new Vector2(70f, 78f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)previous.transform, 22f, 80f, 70f, 78f);
+            var next = UiFactory.NewButton("Next", card, ">", null, new Vector2(70f, 78f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)next.transform, 708f, 80f, 70f, 78f);
 
             var selector = root.gameObject.AddComponent<ModeSelector>();
             selector.previous = previous;
@@ -168,22 +169,35 @@ namespace MixedUp.EditorTools
         /// <summary>A small card above the mode card where the map of a solo game is chosen.</summary>
         static void BuildMapSelector(RectTransform parent)
         {
-            var card = UiFactory.Panel("MapCard", parent, new Vector2(800f, 170f), out var root, true, false);
-            UiFactory.Place(root, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-60f, 356f), new Vector2(800f, 170f));
+            // A picture of the map on the left, its name and what it is about on the right, arrows at both ends.
+            var card = UiFactory.Panel("MapCard", parent, new Vector2(800f, 246f), out var root, true, false);
+            UiFactory.Place(root, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-60f, 352f), new Vector2(800f, 246f));
 
             var header = UiFactory.NewText("Header", card, "", 34f, Brick, TextAlignmentOptions.Center, "lobby.map");
-            At(header.rectTransform, 200f, 18f, 400f, 42f);
-            var name = UiFactory.NewText("Name", card, "", 54f, UiFactory.Ink, TextAlignmentOptions.Center);
-            At(name.rectTransform, 160f, 66f, 480f, 80f);
-            var previous = UiFactory.NewButton("Previous", card, "<", null, new Vector2(100f, 84f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)previous.transform, 36f, 44f, 100f, 84f);
-            var next = UiFactory.NewButton("Next", card, ">", null, new Vector2(100f, 84f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)next.transform, 664f, 44f, 100f, 84f);
+            At(header.rectTransform, 200f, 14f, 400f, 40f);
+
+            var photo = UiFactory.Panel("Photo", card, new Vector2(300f, 172f), out var photoRoot, true, false);
+            At(photoRoot, 104f, 58f, 300f, 172f);
+            var picture = UiFactory.NewRect("Picture", photo);
+            UiFactory.Stretch(picture, 14f);
+            var thumbnail = picture.gameObject.AddComponent<RawImage>();
+            thumbnail.raycastTarget = false;
+
+            var name = UiFactory.NewText("Name", card, "", 44f, UiFactory.Ink, TextAlignmentOptions.Center);
+            At(name.rectTransform, 416f, 62f, 280f, 90f);
+            var description = UiFactory.NewText("Description", card, "", 25f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.85f), TextAlignmentOptions.Top);
+            At(description.rectTransform, 412f, 154f, 290f, 82f);
+            var previous = UiFactory.NewButton("Previous", card, "<", null, new Vector2(70f, 78f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)previous.transform, 22f, 84f, 70f, 78f);
+            var next = UiFactory.NewButton("Next", card, ">", null, new Vector2(70f, 78f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)next.transform, 708f, 84f, 70f, 78f);
 
             var selector = root.gameObject.AddComponent<MapSelector>();
             selector.previous = previous;
             selector.next = next;
             selector.nameLabel = name;
+            selector.descriptionLabel = description;
+            selector.thumbnail = thumbnail;
         }
 
         static void BuildMainMenuUi(GameAssets a, Prefabs p)
@@ -219,20 +233,22 @@ namespace MixedUp.EditorTools
             logo.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -3f);
 
 
-            menu.playButton = UiFactory.NewButton("Play", signpost, "", "ui.play", new Vector2(560f, 128f));
-            At((RectTransform)menu.playButton.transform, 50f, 520f, 560f, 128f);
-            menu.multiplayerButton = UiFactory.NewButton("Multiplayer", signpost, "", "ui.multiplayer", new Vector2(540f, 104f), UiFactory.ButtonStyle.SignLeft);
-            At((RectTransform)menu.multiplayerButton.transform, 60f, 655f, 540f, 104f);
-            menu.settingsButton = UiFactory.NewButton("Settings", signpost, "", "ui.settings", new Vector2(500f, 100f));
-            At((RectTransform)menu.settingsButton.transform, 76f, 770f, 500f, 100f);
-            menu.quitButton = UiFactory.NewButton("Quit", signpost, "", "ui.quit", new Vector2(400f, 92f), UiFactory.ButtonStyle.SignLeft);
-            At((RectTransform)menu.quitButton.transform, 150f, 884f, 400f, 92f);
+            // The signs say what each button is: forward arrows go on, the biggest golden one is what most players want, the
+            // small red plank at the bottom leaves the game.
+            menu.playButton = UiFactory.NewButton("Play", signpost, "", "ui.play", new Vector2(600f, 146f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            At((RectTransform)menu.playButton.transform, 36f, 506f, 600f, 146f);
+            menu.multiplayerButton = UiFactory.NewButton("Multiplayer", signpost, "", "ui.multiplayer", new Vector2(540f, 104f), UiFactory.ButtonStyle.SignRight);
+            At((RectTransform)menu.multiplayerButton.transform, 60f, 664f, 540f, 104f);
+            menu.settingsButton = UiFactory.NewButton("Settings", signpost, "", "ui.settings", new Vector2(470f, 90f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)menu.settingsButton.transform, 90f, 780f, 470f, 90f);
+            menu.quitButton = UiFactory.NewButton("Quit", signpost, "", "ui.quit", new Vector2(320f, 76f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Danger);
+            At((RectTransform)menu.quitButton.transform, 160f, 896f, 320f, 76f);
 
             BuildModeSelector(signpost);
             BuildMapSelector(signpost);
 
-            menu.achievementsButton = UiFactory.NewButton("Achievements", signpost, "", "ui.achievements", new Vector2(430f, 96f), UiFactory.ButtonStyle.SignLeft);
-            UiFactory.Place((RectTransform)menu.achievementsButton.transform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-60f, -44f), new Vector2(430f, 96f));
+            menu.achievementsButton = UiFactory.NewButton("Achievements", signpost, "", "ui.achievements", new Vector2(380f, 84f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            UiFactory.Place((RectTransform)menu.achievementsButton.transform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-60f, -44f), new Vector2(380f, 84f));
 
             var footer = UiFactory.NewText("Footer", canvasGo.transform, "MIXED UP", 30f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.55f), TextAlignmentOptions.BottomRight);
             UiFactory.Place(footer.rectTransform, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-40f, 28f), new Vector2(500f, 50f));

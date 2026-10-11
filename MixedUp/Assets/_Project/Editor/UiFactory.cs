@@ -25,7 +25,27 @@ namespace MixedUp.EditorTools
 
         static System.Random jitter = new System.Random(7);
 
+        /// <summary>The shape of a sign: which way its arrow points (forward = right, back = left) or a plain plank.</summary>
         public enum ButtonStyle { SignRight, SignLeft, Plank }
+
+        /// <summary>
+        /// How important a button is, shown by its colour (and the size the caller gives it). Primary is the thing most players
+        /// want next, Secondary the usual choices, Tertiary the small extras, Back leaves for the previous screen and Danger
+        /// wipes or quits something.
+        /// </summary>
+        public enum ButtonRole { Primary, Secondary, Tertiary, Back, Danger }
+
+        static Color PlankTint(ButtonRole role)
+        {
+            switch (role)
+            {
+                case ButtonRole.Primary: return new Color(1f, 0.84f, 0.42f);
+                case ButtonRole.Tertiary: return new Color(0.93f, 0.9f, 0.84f);
+                case ButtonRole.Back: return new Color(0.82f, 0.87f, 0.92f);
+                case ButtonRole.Danger: return new Color(0.96f, 0.6f, 0.52f);
+                default: return Color.white;
+            }
+        }
 
         // ----------------------------------------------------------- sprites
 
@@ -150,7 +170,8 @@ namespace MixedUp.EditorTools
         // ------------------------------------------------------------ buttons
 
         /// <summary>A wooden sign (or plank) that tips and grows when hovered. The label always fits inside it.</summary>
-        public static Button NewButton(string name, Transform parent, string text, string locKey, Vector2 size, ButtonStyle style = ButtonStyle.SignRight)
+        public static Button NewButton(string name, Transform parent, string text, string locKey, Vector2 size, ButtonStyle style = ButtonStyle.SignRight,
+            ButtonRole role = ButtonRole.Secondary)
         {
             var root = NewRect(name, parent);
             root.sizeDelta = size;
@@ -162,6 +183,7 @@ namespace MixedUp.EditorTools
             var image = NewSprite("Plank", root, sprite, sliced: true, slicedScale: scale);
             Stretch(image.rectTransform);
             image.raycastTarget = true;
+            image.color = PlankTint(role);
 
             var button = root.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
@@ -184,7 +206,10 @@ namespace MixedUp.EditorTools
             float left = style == ButtonStyle.SignLeft ? tip : body;
             float right = style == ButtonStyle.SignLeft ? body : tip;
 
-            var label = NewText("Label", root, text, size.y * 0.55f, Ink, TextAlignmentOptions.Center, locKey);
+            Color ink = role == ButtonRole.Danger ? new Color(0.36f, 0.08f, 0.04f) : Ink;
+            // The main action is lettered a little bigger than the rest, so it reads first.
+            float letters = size.y * (role == ButtonRole.Primary ? 0.6f : role == ButtonRole.Tertiary ? 0.5f : 0.55f);
+            var label = NewText("Label", root, text, letters, ink, TextAlignmentOptions.Center, locKey);
             label.rectTransform.anchorMin = Vector2.zero;
             label.rectTransform.anchorMax = Vector2.one;
             label.rectTransform.offsetMin = new Vector2(left, vertical);

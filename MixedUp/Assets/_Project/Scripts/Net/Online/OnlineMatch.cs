@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace MixedUp
 {
@@ -12,6 +13,23 @@ namespace MixedUp
 
         public string DisplayName => Localization.Get(nameKey);
         public string Description => Localization.Get(descriptionKey);
+
+        Texture2D thumbnail;
+        bool thumbnailLoaded;
+
+        /// <summary>A small picture of the map (Resources/MapThumbs/id), or null when there is none.</summary>
+        public Texture2D Thumbnail
+        {
+            get
+            {
+                if (!thumbnailLoaded)
+                {
+                    thumbnailLoaded = true;
+                    thumbnail = Resources.Load<Texture2D>("MapThumbs/" + id);
+                }
+                return thumbnail;
+            }
+        }
     }
 
     /// <summary>The maps of the game, in the order the lobby shows them.</summary>

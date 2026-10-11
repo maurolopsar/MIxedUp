@@ -65,10 +65,10 @@ namespace MixedUp.EditorTools
             panel.nameInput = NewInput("NameInput", entry, new Vector2(620f, 84f), "lobby.name_hint");
             At((RectTransform)panel.nameInput.transform, 120f, 250f, 620f, 84f);
 
-            panel.createButton = UiFactory.NewButton("Create", entry, "", "lobby.create", new Vector2(620f, 112f));
-            At((RectTransform)panel.createButton.transform, 100f, 390f, 620f, 112f);
-            panel.connectionButton = UiFactory.NewButton("Connection", entry, "", null, new Vector2(620f, 92f), UiFactory.ButtonStyle.Plank);
-            At((RectTransform)panel.connectionButton.transform, 100f, 520f, 620f, 92f);
+            panel.createButton = UiFactory.NewButton("Create", entry, "", "lobby.create", new Vector2(620f, 124f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            At((RectTransform)panel.createButton.transform, 100f, 380f, 620f, 124f);
+            panel.connectionButton = UiFactory.NewButton("Connection", entry, "", null, new Vector2(620f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
+            At((RectTransform)panel.connectionButton.transform, 100f, 526f, 620f, 80f);
             panel.connectionLabel = panel.connectionButton.GetComponentInChildren<TMP_Text>();
 
             var codeLabel = UiFactory.NewText("CodeLabel", entry, "", 40f, Brick, TextAlignmentOptions.MidlineLeft, "lobby.code");
@@ -83,7 +83,7 @@ namespace MixedUp.EditorTools
             panel.messageLabel = UiFactory.NewText("Message", entry, "", 40f, UiFactory.Danger, TextAlignmentOptions.Center);
             At(panel.messageLabel.rectTransform, 120f, 726f, 1260f, 60f);
 
-            panel.backButton = UiFactory.NewButton("Back", entry, "", "ui.back", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft);
+            panel.backButton = UiFactory.NewButton("Back", entry, "", "ui.back", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             At((RectTransform)panel.backButton.transform, 70f, 790f, 340f, 92f);
 
             // -------------------------------------------------------------- room view
@@ -128,20 +128,20 @@ namespace MixedUp.EditorTools
             At(panel.modeLabel.rectTransform, 960f, 352f, 380f, 110f);
             panel.modeDescription = UiFactory.NewText("ModeDescription", room, "", 30f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.8f), TextAlignmentOptions.Top);
             At(panel.modeDescription.rectTransform, 880f, 470f, 540f, 120f);
-            panel.modePrevious = UiFactory.NewButton("ModePrevious", room, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
+            panel.modePrevious = UiFactory.NewButton("ModePrevious", room, "<", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
             At((RectTransform)panel.modePrevious.transform, 880f, 366f, 80f, 80f);
-            panel.modeNext = UiFactory.NewButton("ModeNext", room, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank);
+            panel.modeNext = UiFactory.NewButton("ModeNext", room, ">", null, new Vector2(80f, 80f), UiFactory.ButtonStyle.Plank, UiFactory.ButtonRole.Tertiary);
             At((RectTransform)panel.modeNext.transform, 1340f, 366f, 80f, 80f);
 
             panel.waitingLabel = UiFactory.NewText("Waiting", room, "", 34f, new Color(UiFactory.Ink.r, UiFactory.Ink.g, UiFactory.Ink.b, 0.75f), TextAlignmentOptions.Center);
             At(panel.waitingLabel.rectTransform, 840f, 620f, 620f, 80f);
 
-            panel.readyButton = UiFactory.NewButton("Ready", room, "", "lobby.ready_action", new Vector2(520f, 110f));
-            At((RectTransform)panel.readyButton.transform, 880f, 730f, 520f, 110f);
+            panel.readyButton = UiFactory.NewButton("Ready", room, "", "lobby.ready_action", new Vector2(560f, 120f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            At((RectTransform)panel.readyButton.transform, 860f, 720f, 560f, 120f);
             panel.readyButtonLabel = panel.readyButton.GetComponentInChildren<TMP_Text>();
-            panel.startButton = UiFactory.NewButton("Start", room, "", "lobby.start", new Vector2(520f, 110f));
-            At((RectTransform)panel.startButton.transform, 880f, 730f, 520f, 110f);
-            panel.leaveButton = UiFactory.NewButton("Leave", room, "", "lobby.leave", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft);
+            panel.startButton = UiFactory.NewButton("Start", room, "", "lobby.start", new Vector2(560f, 120f), UiFactory.ButtonStyle.SignRight, UiFactory.ButtonRole.Primary);
+            At((RectTransform)panel.startButton.transform, 860f, 720f, 560f, 120f);
+            panel.leaveButton = UiFactory.NewButton("Leave", room, "", "lobby.leave", new Vector2(340f, 92f), UiFactory.ButtonStyle.SignLeft, UiFactory.ButtonRole.Back);
             At((RectTransform)panel.leaveButton.transform, 70f, 810f, 340f, 92f);
 
             room.gameObject.SetActive(false);

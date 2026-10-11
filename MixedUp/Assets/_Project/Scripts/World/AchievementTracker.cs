@@ -25,6 +25,7 @@ namespace MixedUp
             Sweeper.CleanJump += OnCleanJump;
             RubberDuck.Squeaked += OnDuck;
             Snowman.Collapsed += OnSnowman;
+            SecretSpot.Found += OnSecret;
             BouncePad.Bounced += OnBounce;
             PlayerHug.Started += OnHug;
             PlayerPush.Pushed += OnPush;
@@ -41,6 +42,7 @@ namespace MixedUp
             Sweeper.CleanJump -= OnCleanJump;
             RubberDuck.Squeaked -= OnDuck;
             Snowman.Collapsed -= OnSnowman;
+            SecretSpot.Found -= OnSecret;
             BouncePad.Bounced -= OnBounce;
             PlayerHug.Started -= OnHug;
             PlayerPush.Pushed -= OnPush;
@@ -100,6 +102,8 @@ namespace MixedUp
         }
 
         void OnSnowman(Snowman snowman) => Achievements.Add(Achievements.Snowman);
+
+        void OnSecret(SecretSpot spot) => Achievements.AddToSet(Achievements.Secrets, spot.id);
 
         void OnBounce(BouncePad pad)
         {

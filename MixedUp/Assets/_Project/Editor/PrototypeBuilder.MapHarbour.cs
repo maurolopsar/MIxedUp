@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MixedUp.EditorTools
@@ -178,7 +179,16 @@ namespace MixedUp.EditorTools
                 Prim(PrimitiveType.Cube, "Mast", boat, new Vector3(0f, 1.3f, 0.9f), new Vector3(0.12f, 2.6f, 0.12f), m.woodDark, false);
             }
 
-            Scatter(14, 21, -43f, -33f, 43f, -10f, (x, z) => Mathf.Abs(x) < 8f && z > -33f || (x > 12f && x < 24f && z < -27f) || z > -13f || NearSpawnPoint(c, x, z, 3.2f), (x, z, rng) =>
+            var reserved = new List<(Vector2 centre, float radius)>();
+            AddHarbourDetails(c, reserved);
+            bool Taken(float x, float z)
+            {
+                foreach (var (centre, radius) in reserved)
+                    if (Vector2.Distance(new Vector2(x, z), centre) < radius) return true;
+                return false;
+            }
+
+            Scatter(14, 21, -43f, -33f, 43f, -10f, (x, z) => Mathf.Abs(x) < 8f && z > -33f || (x > 12f && x < 24f && z < -27f) || z > -13f || NearSpawnPoint(c, x, z, 3.2f) || Taken(x, z), (x, z, rng) =>
                 PlaceProp(props, art.rocks[rng.Next(art.rocks.Length)], new Vector3(x, 0f, z), (float)rng.NextDouble() * 360f, 0.7f + (float)rng.NextDouble() * 0.8f));
         }
     }

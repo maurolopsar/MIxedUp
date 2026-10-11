@@ -51,6 +51,104 @@ namespace MixedUp.Tests
         }
     }
 
+    /// <summary>The secrets, notices and signs that give the extra maps their character.</summary>
+    public abstract class MapCharacterBase : SceneTestBase
+    {
+        [UnityTest]
+        public IEnumerator TheMapHasSecretsWithRealTextAndOneIdEach()
+        {
+            var spots = Object.FindObjectsByType<SecretSpot>();
+            Assert.GreaterOrEqual(spots.Length, 4, "a few secrets to find");
+
+            var seen = new System.Collections.Generic.HashSet<string>();
+            foreach (var spot in spots)
+            {
+                Assert.IsFalse(string.IsNullOrEmpty(spot.id), spot.name + " has no id");
+                Assert.IsTrue(seen.Add(spot.id), "two secrets share the id " + spot.id);
+                Assert.IsFalse(Localization.Get(spot.toastKey).StartsWith("["), "missing text for " + spot.toastKey);
+                Assert.IsTrue(spot.GetComponent<Collider>() != null && spot.GetComponent<Collider>().isTrigger, spot.id + " cannot be reached");
+            }
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator EveryNoticeAndSignHasATranslatedText()
+        {
+            var texts = Object.FindObjectsByType<LocalizedText>(FindObjectsInactive.Include);
+            int boards = 0;
+            foreach (var text in texts)
+            {
+                if (text.GetComponent<TMPro.TextMeshPro>() == null) continue;   // only the texts standing in the world
+                boards++;
+                foreach (var language in new[] { Language.Basque, Language.Spanish, Language.English })
+                {
+                    Localization.SetLanguage(language);
+                    string shown = Localization.Get(text.key);
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(shown) || shown.StartsWith("["), text.key + " in " + language);
+                }
+            }
+            Localization.SetLanguage(Language.Spanish);
+            Assert.GreaterOrEqual(boards, 8, "signs and notices all over the map");
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator FindingSecretsCountsTowardsTheAchievementOnlyOncePerSecret()
+        {
+            var spots = Object.FindObjectsByType<SecretSpot>();
+            var hands = interactor;
+            spots[0].cooldownSeconds = 0f;
+            spots[0].Interact(hands);
+            spots[0].Interact(hands);
+            Assert.AreEqual(1, Achievements.Progress(Achievements.Secrets));
+
+            spots[1].Interact(hands);
+            Assert.AreEqual(2, Achievements.Progress(Achievements.Secrets));
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator NothingSolidSitsOnABoxSpot()
+        {
+            foreach (var spot in Object.FindObjectsByType<BoxSpawnPoint>())
+            {
+                var centre = spot.transform.position + Vector3.up * 0.65f;
+                var hits = Physics.OverlapSphere(centre, 0.3f, ~0, QueryTriggerInteraction.Ignore);
+                foreach (var hit in hits)
+                {
+                    // The box that belongs on the spot (or a neighbour already resting there) is not an obstacle.
+                    if (hit.GetComponentInParent<BoxPickup>() != null) continue;
+                    Assert.Fail(spot.name + " has " + hit.name + " in the way");
+                }
+            }
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator NoLightIsLeftWithoutAShadowBudgetOrAnAbsurdRange()
+        {
+            int lights = 0;
+            foreach (var light in Object.FindObjectsByType<Light>())
+            {
+                if (light.type == LightType.Directional) continue;
+                lights++;
+                Assert.LessOrEqual(light.range, 90f, light.name);
+            }
+            Assert.LessOrEqual(lights, 60, "too many lights for a mid-range PC");
+            yield return null;
+        }
+    }
+
+    public class SummitCharacterTests : MapCharacterBase
+    {
+        protected override string SceneToLoad => "Assets/Scenes/Level_Summit.unity";
+    }
+
+    public class HarbourCharacterTests : MapCharacterBase
+    {
+        protected override string SceneToLoad => "Assets/Scenes/Level_Harbour.unity";
+    }
+
     public class SummitMapTests : MapTestsBase
     {
         protected override string SceneToLoad => "Assets/Scenes/Level_Summit.unity";

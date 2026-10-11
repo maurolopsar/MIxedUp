@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 namespace MixedUp
 {
-    /// <summary>The card of the main menu where the map of a solo game is chosen with two arrows.</summary>
+    /// <summary>The card of the main menu where the map of a solo game is chosen with two arrows, with a picture of the map.</summary>
     public class MapSelector : MonoBehaviour
     {
         public Button previous, next;
         public TMP_Text nameLabel;
+        public TMP_Text descriptionLabel;
+        [Tooltip("The picture of the selected map.")]
+        public RawImage thumbnail;
 
         void Awake()
         {
@@ -32,7 +35,15 @@ namespace MixedUp
 
         public void Refresh()
         {
-            if (nameLabel != null) nameLabel.text = LevelCatalog.Selected.DisplayName;
+            var level = LevelCatalog.Selected;
+            if (nameLabel != null) nameLabel.text = level.DisplayName;
+            if (descriptionLabel != null) descriptionLabel.text = level.Description;
+            if (thumbnail != null)
+            {
+                var picture = level.Thumbnail;
+                thumbnail.texture = picture;
+                thumbnail.enabled = picture != null;
+            }
         }
     }
 }

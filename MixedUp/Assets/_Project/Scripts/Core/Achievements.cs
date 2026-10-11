@@ -45,11 +45,12 @@ namespace MixedUp
         public static readonly AchievementDef Rich = new AchievementDef("rich", 1000);
         public static readonly AchievementDef Veteran = new AchievementDef("veteran", 10);
         public static readonly AchievementDef Cavers = new AchievementDef("cave");
+        public static readonly AchievementDef Secrets = new AchievementDef("secrets", 6);
 
         public static readonly AchievementDef[] All =
         {
             SpinningLog, Ducks, Combinations, Snowman, Mushrooms, FirstBox, Deliveries, Hugs, Shoves, Splashes,
-            Victory, AllModes, Deaths, Boom, Rich, Veteran, Cavers
+            Victory, AllModes, Deaths, Boom, Rich, Veteran, Cavers, Secrets
         };
 
         public static event Action<AchievementDef> Unlocked;

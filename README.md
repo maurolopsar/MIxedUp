@@ -52,8 +52,13 @@ Se eligen en el menú principal (tarjeta "MAPA", partida en solitario) o los eli
 | Mapa | Escena | De qué va |
 | --- | --- | --- |
 | Pradera del reparto | `Level_Prototype` | El mapa original: río, cueva, colina helada, tronco giratorio |
-| Cumbre helada | `Level_Summit` | Nivel superior: lago helado enorme (todo resbala), campamento con hoguera, pilón eléctrico, rampa de hielo, torre, túnel y acantilado de setas |
-| Puerto al anochecer | `Level_Harbour` | Muelles sobre una bahía poco profunda, balsa a la isla, barcaza, pila de cajas y faro. Agua y electricidad muy cerca: ideal para "Entrega nocturna" y "Desafío" |
+| Cumbre helada | `Level_Summit` | Nivel superior: lago helado enorme (todo resbala), campamento con hoguera y tienda, refugio de montaña con trineo, pilón eléctrico, rampa de hielo, torre, túnel y acantilado de setas |
+| Puerto al anochecer | `Level_Harbour` | Muelles sobre una bahía poco profunda, balsa a la isla, barcaza, pila de cajas, almacén, grúa, lonja y faro con haz de luz. Agua y electricidad muy cerca: ideal para "Entrega nocturna" y "Desafío" |
+
+Cada mapa extra tiene carteles que dicen qué es cada sitio (y alguna broma), indicadores con flechas hacia los lugares importantes
+y **secretos** que se buscan con E: el yeti y el agujero de pesca de la cumbre; el kraken, la botella con mensaje y la gaviota del
+puerto... Encontrar 6 desbloquea el logro "Cazador de secretos". Al elegir un mapa se ve una miniatura (`Resources/MapThumbs`,
+se regenera con el test explícito `MapThumbnails`).
 
 Todos los mapas funcionan con todos los modos de partida. Se generan con **MixedUp > Build Prototype Scene**
 (`PrototypeBuilder.Maps.cs` es el andamio común; cada mapa solo rellena su terreno, hazards y puntos de cajas).
@@ -118,8 +123,8 @@ lo mismo a la vez. Está sincronizado:
 
 ## Logros y pistas
 
-El menú tiene un botón **Logros** (17 retos: saltar el tronco 67 veces, acariciar todos los patos, probar todas las combinaciones,
-derribar el muñeco de nieve...). Cerca de las cajas difíciles aparece una pista (por ejemplo, agacharse en el túnel).
+El menú tiene un botón **Logros** (18 retos: saltar el tronco 67 veces, acariciar todos los patos, probar todas las combinaciones,
+derribar el muñeco de nieve, encontrar secretos...). Cerca de las cajas difíciles aparece una pista (por ejemplo, agacharse en el túnel).
 
 ## Estructura (`MixedUp/Assets/_Project`)
 
